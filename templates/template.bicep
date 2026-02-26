@@ -407,7 +407,7 @@ resource script 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
   location: location
   kind: 'AzurePowerShell'
   properties: {
-    azPowerShellVersion: '7.2'
+    azPowerShellVersion: '15.3.0'
     arguments: '-subscriptionId ${subscriptionId} -resourceGroupName ${resourceGroupName} -accountName ${purviewAccount.name} -objectId ${userAssignedIdentity.properties.principalId} -sqlServerAdminLogin ${sqlServerAdminLogin} -sqlSecretName ${sqlSecretName} -vaultUri ${kv.properties.vaultUri} -sqlServerName ${sqlsvr.name} -location ${location} -sqlDatabaseName ${sqldb.name} -storageAccountName ${adls.name} -adfName ${adf.name} -adfPipelineName ${adf::pipelineCopy.name} -adfPrincipalId ${adf.identity.principalId}'
     primaryScriptUri: 'https://raw.githubusercontent.com/tayganr/purviewdemo/main/scripts/script.ps1'
     forceUpdateTag: guid(resourceGroup().id)
