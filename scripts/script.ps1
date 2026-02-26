@@ -15,8 +15,19 @@ param(
     [string]$vaultUri
 )
 
-Install-Module Az.Purview -Force
-Import-Module Az.Purview
+# Mostra cosa è già caricato
+Get-Module Az.Accounts -ListAvailable | Select Name, Version
+Get-Module Az.Accounts | Remove-Module -Force -ErrorAction SilentlyContinue
+
+# Assicurati della versione richiesta da Az.Purview
+Install-Module Az.Accounts -RequiredVersion 5.1.1 -Scope CurrentUser -Force
+Import-Module Az.Accounts -RequiredVersion 5.1.1 -Force
+
+# Installa/Importa Az.Purview (preview) in versione compatibile
+Install-Module Az.Purview -RequiredVersion 0.3.0 -Scope CurrentUser -Force
+Import-Module Az.Purview -RequiredVersion 0.3.0 -Force
+
+# A questo punto i cmdlet Az.Purview (es. Add-AzPurviewAccountRootCollectionAdmin) dovrebbero funzionare
 
 # Variables
 $pv_endpoint = "https://${accountName}.purview.azure.com"
